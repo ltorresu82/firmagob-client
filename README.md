@@ -1,5 +1,8 @@
 # @ltorresu82/firmagob-client
 
+[![CI](https://github.com/ltorresu82/firmagob-client/actions/workflows/ci.yml/badge.svg)](https://github.com/ltorresu82/firmagob-client/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@ltorresu82/firmagob-client.svg)](https://www.npmjs.com/package/@ltorresu82/firmagob-client)
+
 Cliente TypeScript para integrar FirmaGob Chile sin depender de librerias PDF deprecadas.
 
 Estado inicial:
