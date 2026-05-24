@@ -7,6 +7,8 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "docs",
+    "examples",
     "README.md",
     "LICENSE"
   ],
@@ -17,6 +19,8 @@
     "test": "npm run build:test && node --test dist/**/*.test.js",
     "validate:sandbox": "npm run build && node examples/sign-hash-sandbox.js",
     "validate:sandbox:dry-run": "npm run build && node examples/sign-hash-sandbox.js --dry-run",
+    "publish:dry-run": "npm publish --dry-run --access public",
+    "prepublishOnly": "npm test && npm audit",
     "prepack": "npm run build"
   },
   "keywords": [
