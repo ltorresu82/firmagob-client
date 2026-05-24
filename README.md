@@ -105,6 +105,14 @@ El ejemplo escribe evidencia temporal en `tmp/sandbox-hash/`.
 
 Para solicitar credenciales a la institucion o al equipo FirmaGob, ver [docs/credentials.md](docs/credentials.md).
 
+## Ejemplos de integracion
+
+Ejemplos completos con CLI Node.js, API Hono y app Astro:
+
+```text
+https://github.com/ltorresu82/firmagob-client-examples
+```
+
 ## Desarrollo
 
 ```bash
