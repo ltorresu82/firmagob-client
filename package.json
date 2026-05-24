@@ -1,0 +1,49 @@
+{
+  "name": "@ltorresu82/firmagob-client",
+  "version": "0.1.0",
+  "description": "Cliente TypeScript para integrar FirmaGob Chile con firma por hash y PDFs firmados externamente",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "build:test": "npm run clean && tsc -p tsconfig.json",
+    "test": "npm run build:test && node --test dist/**/*.test.js",
+    "validate:sandbox": "npm run build && node examples/sign-hash-sandbox.js",
+    "validate:sandbox:dry-run": "npm run build && node examples/sign-hash-sandbox.js --dry-run",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "firma",
+    "digital",
+    "firma-gob",
+    "chile",
+    "pdf"
+  ],
+  "author": "Luis Torres",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ltorresu82/firmagob-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ltorresu82/firmagob-client/issues"
+  },
+  "homepage": "https://github.com/ltorresu82/firmagob-client#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "typescript": "^5.4.5"
+  }
+}

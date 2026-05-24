@@ -1,0 +1,6 @@
+dist/**/*.test.js
+dist/**/*.test.d.ts
+src/
+tmp/
+coverage/
+*.tgz
