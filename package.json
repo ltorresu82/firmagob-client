@@ -1,6 +1,6 @@
 {
   "name": "@ltorresu82/firmagob-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cliente TypeScript para integrar FirmaGob Chile con firma por hash y PDFs firmados externamente",
   "type": "module",
   "main": "dist/index.js",

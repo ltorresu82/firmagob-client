@@ -53,7 +53,7 @@ const response = await client.signHashes([
 ]);
 ```
 
-El JWT incluye los claims `entity`, `run`, `purpose` y `expiration`. Por defecto el token expira en 5 minutos, alineado con los ejemplos oficiales. Se puede ajustar con `tokenTtlSeconds` si el ambiente lo requiere.
+El JWT incluye los claims `entity`, `run`, `purpose`, `expiration` e `iat`. Por defecto el token expira en 5 minutos, alineado con los ejemplos oficiales. `expiration` se serializa como `yyyy-MM-dd'T'HH:mm:ss`. Se puede ajustar con `tokenTtlSeconds` si el ambiente lo requiere.
 
 ## PDF con firma externa
 

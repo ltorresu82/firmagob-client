@@ -53,7 +53,8 @@ export type FirmaGobSignOutput = {
     otpExpired: boolean;
     filesSigned: number;
     signedFailed: number;
-    objectReceived: number;
+    objectsReceived?: number;
+    objectReceived?: number;
   };
   status: number;
   error?: string;
@@ -144,12 +145,14 @@ export class FirmaGobClient {
   createToken(now = new Date()): string {
     const tokenTtlSeconds =
       this.config.tokenTtlSeconds ?? DEFAULT_TOKEN_TTL_SECONDS;
+    const expiration = new Date(now.getTime() + tokenTtlSeconds * 1000);
     const header = base64UrlEncodeJson({ alg: "HS256", typ: "JWT" });
     const payload = base64UrlEncodeJson({
       entity: this.config.entity,
       run: this.config.run,
       purpose: this.config.purpose ?? Purpose.Unattended,
-      expiration: new Date(now.getTime() + tokenTtlSeconds * 1000).toISOString(),
+      expiration: formatFirmaGobDateTime(expiration),
+      iat: Math.floor(now.getTime() / 1000),
     });
     const unsignedToken = `${header}.${payload}`;
     const signature = createHmac("sha256", this.config.secret)
@@ -212,6 +215,10 @@ function assertRequired(name: string, value: string): void {
 
 function base64UrlEncodeJson(value: unknown): string {
   return Buffer.from(JSON.stringify(value)).toString("base64url");
+}
+
+function formatFirmaGobDateTime(date: Date): string {
+  return date.toISOString().slice(0, 19);
 }
 
 function parseJsonResponse(body: string): FirmaGobSignOutput {

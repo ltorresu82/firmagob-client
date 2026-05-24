@@ -27,7 +27,8 @@ describe("FirmaGobClient", () => {
       entity: "Institucion de Prueba",
       run: "11111111",
       purpose: "Desatendido",
-      expiration: "2026-05-24T12:05:00.000Z",
+      expiration: "2026-05-24T12:05:00",
+      iat: Math.floor(new Date("2026-05-24T12:00:00.000Z").getTime() / 1000),
     });
     assert.equal(signature, expectedSignature);
   });
@@ -47,7 +48,7 @@ describe("FirmaGobClient", () => {
 
     assert.equal(
       JSON.parse(Buffer.from(payload, "base64url").toString()).expiration,
-      "2026-05-24T12:01:00.000Z"
+      "2026-05-24T12:01:00"
     );
   });
 
@@ -67,7 +68,7 @@ describe("FirmaGobClient", () => {
               otpExpired: false,
               filesSigned: 1,
               signedFailed: 0,
-              objectReceived: 1,
+              objectsReceived: 1,
             },
             status: 200,
             hashes: [],
