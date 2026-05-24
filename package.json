@@ -16,7 +16,7 @@
     "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "build:test": "npm run clean && tsc -p tsconfig.json",
-    "test": "npm run build:test && node --test dist/**/*.test.js",
+    "test": "npm run build:test && node --test dist/firmagob-client.test.js dist/pdf-external-signature.test.js",
     "validate:sandbox": "npm run build && node examples/sign-hash-sandbox.js",
     "validate:sandbox:dry-run": "npm run build && node examples/sign-hash-sandbox.js --dry-run",
     "publish:dry-run": "npm publish --dry-run --access public",
