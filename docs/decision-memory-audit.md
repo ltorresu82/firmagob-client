@@ -131,6 +131,6 @@ Resultados:
 - `npm audit`: `found 0 vulnerabilities`.
 - `git status --short --ignored`: solo mostró `dist/` y `node_modules/` como ignorados luego de la validación.
 
-## Siguiente paso recomendado
+## Resultado posterior
 
-Si se acepta esta propuesta, crear `docs/adr/` y convertir cada decisión aceptada en un ADR corto con secciones `Status`, `Context`, `Decision` y `Consequences`. También conviene agregar un índice `docs/adr/README.md`.
+Esta propuesta fue aceptada y materializada como ADRs en `docs/adr/`, con un índice en `docs/adr/README.md`.
