@@ -53,7 +53,7 @@ const response = await client.signHashes([
 ]);
 ```
 
-El JWT incluye los claims `entity`, `run`, `purpose`, `expiration` e `iat`. Por defecto el token expira en 5 minutos, alineado con los ejemplos oficiales. `expiration` se serializa como `yyyy-MM-dd'T'HH:mm:ss`. Se puede ajustar con `tokenTtlSeconds` si el ambiente lo requiere.
+El JWT incluye los claims `entity`, `run`, `purpose`, `expiration` e `iat`. Por defecto el token expira en 5 minutos, alineado con los ejemplos oficiales. `expiration` se serializa como `yyyy-MM-dd'T'HH:mm:ss` en zona horaria `America/Santiago`, porque FirmaGob interpreta ese valor como fecha local sin zona. Se puede ajustar con `tokenTtlSeconds` y `tokenTimeZone` si el ambiente lo requiere.
 
 ## PDF con firma externa
 
@@ -107,7 +107,7 @@ Para solicitar credenciales a la institucion o al equipo FirmaGob, ver [docs/cre
 
 ## Ejemplos de integracion
 
-Ejemplos completos con CLI Node.js, API Hono y app Astro:
+Ejemplos completos con CLI Node.js, API Hono y app Angular:
 
 ```text
 https://github.com/ltorresu82/firmagob-client-examples

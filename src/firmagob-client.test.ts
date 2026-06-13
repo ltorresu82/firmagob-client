@@ -27,10 +27,30 @@ describe("FirmaGobClient", () => {
       entity: "Institucion de Prueba",
       run: "11111111",
       purpose: "Desatendido",
-      expiration: "2026-05-24T12:05:00",
+      expiration: "2026-05-24T08:05:00",
       iat: Math.floor(new Date("2026-05-24T12:00:00.000Z").getTime() / 1000),
     });
     assert.equal(signature, expectedSignature);
+  });
+
+  it("allows overriding the JWT expiration time zone", () => {
+    const client = new FirmaGobClient({
+      apiTokenKey: "sandbox",
+      secret: "secret",
+      entity: "Institucion de Prueba",
+      run: "11111111",
+      purpose: Purpose.Unattended,
+      tokenTimeZone: "UTC",
+    });
+
+    const [, payload] = client
+      .createToken(new Date("2026-05-24T12:00:00.000Z"))
+      .split(".");
+
+    assert.equal(
+      JSON.parse(Buffer.from(payload, "base64url").toString()).expiration,
+      "2026-05-24T12:05:00"
+    );
   });
 
   it("allows overriding the JWT expiration window", () => {
@@ -48,7 +68,7 @@ describe("FirmaGobClient", () => {
 
     assert.equal(
       JSON.parse(Buffer.from(payload, "base64url").toString()).expiration,
-      "2026-05-24T12:01:00"
+      "2026-05-24T08:01:00"
     );
   });
 

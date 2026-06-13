@@ -13,6 +13,8 @@ Este paquete no incluye credenciales de prueba ni productivas. Para ejecutar una
 | `FIRMAGOB_PURPOSE` | Proposito del certificado: `Desatendido` o `Propósito General`. |
 | `FIRMAGOB_ENDPOINT_API` | Endpoint API del ambiente correspondiente. |
 
+El token JWT usa `expiration` como fecha local sin zona horaria. Por defecto este paquete usa `America/Santiago`, que replica el comportamiento esperado por los ejemplos oficiales Java cuando se ejecutan en Chile.
+
 Endpoint de certificacion usado por los ejemplos oficiales:
 
 ```text

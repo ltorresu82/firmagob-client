@@ -17,6 +17,7 @@ export type FirmaGobClientConfig = {
   purpose?: Purpose;
   environment?: Environment;
   tokenTtlSeconds?: number;
+  tokenTimeZone?: string;
   fetch?: typeof fetch;
   testUrl?: string;
   productionUrl?: string;
@@ -85,6 +86,7 @@ const TEST_URL = "https://api.firma.cert.digital.gob.cl/firma/v2/files/tickets";
 const PRODUCTION_URL =
   "https://api.firma.digital.gob.cl/firma/v2/files/tickets";
 const DEFAULT_TOKEN_TTL_SECONDS = 5 * 60;
+const DEFAULT_TOKEN_TIME_ZONE = "America/Santiago";
 
 export class FirmaGobClient {
   private readonly fetchImpl: typeof fetch;
@@ -151,7 +153,10 @@ export class FirmaGobClient {
       entity: this.config.entity,
       run: this.config.run,
       purpose: this.config.purpose ?? Purpose.Unattended,
-      expiration: formatFirmaGobDateTime(expiration),
+      expiration: formatFirmaGobDateTime(
+        expiration,
+        this.config.tokenTimeZone ?? DEFAULT_TOKEN_TIME_ZONE
+      ),
       iat: Math.floor(now.getTime() / 1000),
     });
     const unsignedToken = `${header}.${payload}`;
@@ -217,8 +222,32 @@ function base64UrlEncodeJson(value: unknown): string {
   return Buffer.from(JSON.stringify(value)).toString("base64url");
 }
 
-function formatFirmaGobDateTime(date: Date): string {
-  return date.toISOString().slice(0, 19);
+function formatFirmaGobDateTime(date: Date, timeZone: string): string {
+  const parts = new Intl.DateTimeFormat("sv-SE", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  const get = (type: Intl.DateTimeFormatPartTypes): string => {
+    const value = parts.find((part) => part.type === type)?.value;
+
+    if (!value) {
+      throw new FirmaGobClientError(
+        `Could not format FirmaGob expiration date for time zone: ${timeZone}`
+      );
+    }
+
+    return value;
+  };
+
+  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get(
+    "minute"
+  )}:${get("second")}`;
 }
 
 function parseJsonResponse(body: string): FirmaGobSignOutput {
